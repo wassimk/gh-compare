@@ -12,6 +12,7 @@ gh extension install wassimk/gh-compare
 
 ```shell
 gh compare
-gh compare main..my-branch
+gh compare other_branch
 gh compare main...my-branch
+gh compare 7a67154..205b073
 ```

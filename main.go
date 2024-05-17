@@ -2,30 +2,37 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"github.com/cli/go-gh/v2/pkg/browser"
 	"github.com/cli/go-gh/v2/pkg/repository"
 	"github.com/go-git/go-git/v5"
 	"log"
+	"os"
+	"strings"
 )
 
 func main() {
-	var arg string
+	gitRepo, err := git.PlainOpen(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ref, err := gitRepo.Head()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	currentBranch := ref.Name().Short()
+
+	var compareArgument string
 
 	if len(os.Args) == 2 {
-		arg = os.Args[1]
-	} else {
-    gitRepo, err := git.PlainOpen(".")
-    if err != nil {
-      log.Fatal(err)
-    }
+		compareArgument = os.Args[1]
 
-		ref, err := gitRepo.Head()
-		if err != nil {
-			log.Fatal(err)
+		if !(strings.Contains(compareArgument, "..") || strings.Contains(compareArgument, "...")) {
+			compareArgument = compareArgument + "..." + currentBranch
 		}
-
-		arg = ref.Name().Short()
+	} else {
+		compareArgument = currentBranch
 	}
 
 	ghRepo, err := repository.Current()
@@ -33,13 +40,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	url := fmt.Sprintf("https://%s/%s/%s/compare/%s", ghRepo.Host, ghRepo.Owner, ghRepo.Name, arg)
+	url := fmt.Sprintf("https://%s/%s/%s/compare/%s", ghRepo.Host, ghRepo.Owner, ghRepo.Name, compareArgument)
 
 	browser := browser.New("", os.Stdout, os.Stderr)
 
-	err = browser.Browse(url)
-	if err != nil {
+	if err = browser.Browse(url); err != nil {
 		log.Fatal(err)
 	}
 }
-
