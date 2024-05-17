@@ -2,25 +2,25 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"github.com/cli/go-gh/v2/pkg/browser"
+	"github.com/cli/go-gh/v2/pkg/repository"
 	"github.com/go-git/go-git/v5"
 	"log"
-	"os"
 )
 
 func main() {
 	var arg string
 
-	repo, err := git.PlainOpen(".")
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	if len(os.Args) == 2 {
 		arg = os.Args[1]
 	} else {
-		// Get the current branch
-		ref, err := repo.Head()
+    gitRepo, err := git.PlainOpen(".")
+    if err != nil {
+      log.Fatal(err)
+    }
+
+		ref, err := gitRepo.Head()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -28,13 +28,12 @@ func main() {
 		arg = ref.Name().Short()
 	}
 
-	cfg, err := repo.Config()
+	ghRepo, err := repository.Current()
 	if err != nil {
 		log.Fatal(err)
 	}
-	remoteURL := cfg.Remotes["origin"].URLs[0]
 
-	url := fmt.Sprintf("%s/compare/%s", remoteURL, arg)
+	url := fmt.Sprintf("https://%s/%s/%s/compare/%s", ghRepo.Host, ghRepo.Owner, ghRepo.Name, arg)
 
 	browser := browser.New("", os.Stdout, os.Stderr)
 
@@ -43,3 +42,4 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
