@@ -1,6 +1,6 @@
 module github.com/wassimk/gh-compare
 
-go 1.22
+go 1.21
 
 require (
 	github.com/cli/go-gh/v2 v2.9.0
