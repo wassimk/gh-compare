@@ -1,6 +1,6 @@
 ## gh-compare
 
-This is a [`gh`](https://cli.github.com/) extension to replace the [`compare`](https://hub.github.com/hub-compare.1.html) command in the mostly deprecated tool, [`hub`](https://hub.github.com/).
+This is a [`gh`](https://cli.github.com/) extension to replace the [`compare`](https://hub.github.com/hub-compare.1.html) command in the deprecated tool, [`hub`](https://hub.github.com/).
 
 ### Installation
 
@@ -10,13 +10,13 @@ gh extension install wassimk/gh-compare
 
 ### Usage
 
-Compare the current branch against the `main` branch.
+Compare the current branch against `main`. If this repository is a fork, it uses the upstream remote.
 
 ```shell
 gh compare
 ```
 
-Compare the current branch against another branch.
+Compare the current branch against another.
 
 ```shell
 gh compare other_branch
