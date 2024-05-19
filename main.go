@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/cli/go-gh/v2/pkg/browser"
-	"github.com/cli/go-gh/v2/pkg/repository"
-	"github.com/go-git/go-git/v5"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/cli/go-gh/v2/pkg/browser"
+	"github.com/cli/go-gh/v2/pkg/repository"
+	"github.com/go-git/go-git/v5"
 )
 
 func main() {
