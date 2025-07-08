@@ -88,8 +88,8 @@ func parseRepoOwnerFromURL(url string) (string, error) {
 		return parts[0], nil
 	}
 
-	if strings.HasPrefix(url, "https://github.com/") {
-		url = strings.TrimPrefix(url, "https://github.com/")
+	if after, found := strings.CutPrefix(url, "https://github.com/"); found {
+		url = after
 		url = strings.TrimSuffix(url, ".git")
 		parts := strings.Split(url, "/")
 		if len(parts) < 2 {
