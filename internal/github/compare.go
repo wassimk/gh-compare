@@ -52,4 +52,3 @@ func (s *CompareService) buildCompareRequest(args []string) (*git.CompareRequest
 
 	return request, nil
 }
-

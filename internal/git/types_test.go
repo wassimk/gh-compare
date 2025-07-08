@@ -173,4 +173,3 @@ func TestCompareRequest_BuildArgument(t *testing.T) {
 		})
 	}
 }
-

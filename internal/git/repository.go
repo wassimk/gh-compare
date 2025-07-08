@@ -70,6 +70,39 @@ func hasUpstreamRemote(remotes []Remote) bool {
 	return false
 }
 
+func getDefaultBranch(path string) (string, error) {
+	gitRepo, err := git.PlainOpen(path)
+	if err != nil {
+		return "", fmt.Errorf("%w: %v", ErrNotAGitRepository, err)
+	}
+
+	remotes, err := gitRepo.Remotes()
+	if err != nil {
+		return "", fmt.Errorf("%w: %v", ErrNoRemoteFound, err)
+	}
+
+	for _, remote := range remotes {
+		config := remote.Config()
+		if config.Name == "origin" {
+			refs, err := remote.List(&git.ListOptions{})
+			if err != nil {
+				continue
+			}
+
+			for _, ref := range refs {
+				if ref.Name().String() == "HEAD" {
+					target := ref.Target()
+					if target.String() != "" {
+						return target.Short(), nil
+					}
+				}
+			}
+		}
+	}
+
+	return "main", nil
+}
+
 func parseRepoOwnerFromURL(url string) (string, error) {
 	if url == "" {
 		return "", ErrInvalidRemoteURL
@@ -100,4 +133,3 @@ func parseRepoOwnerFromURL(url string) (string, error) {
 
 	return "", ErrInvalidRemoteURL
 }
-

@@ -152,4 +152,3 @@ func TestCompareService_GenerateCompareURL_Integration(t *testing.T) {
 		})
 	}
 }
-

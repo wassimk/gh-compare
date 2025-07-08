@@ -58,6 +58,14 @@ func (r *Repository) GetOriginOwner() (string, error) {
 	return parseRepoOwnerFromURL(originRemote.URL)
 }
 
+func (r *Repository) GetDefaultBranch() (string, error) {
+	defaultBranch, err := getDefaultBranch(r.Path)
+	if err != nil {
+		return "", err
+	}
+	return defaultBranch, nil
+}
+
 func (c *CompareRequest) BuildArgument() string {
 	if c.CustomFormat != "" {
 		return c.CustomFormat
@@ -68,7 +76,11 @@ func (c *CompareRequest) BuildArgument() string {
 		if err != nil {
 			return c.Repository.CurrentBranch
 		}
-		return fmt.Sprintf("main...%s:%s", owner, c.Repository.CurrentBranch)
+		defaultBranch, err := c.Repository.GetDefaultBranch()
+		if err != nil {
+			defaultBranch = "main"
+		}
+		return fmt.Sprintf("%s...%s:%s", defaultBranch, owner, c.Repository.CurrentBranch)
 	}
 
 	if c.BaseBranch != "" {
@@ -77,4 +89,3 @@ func (c *CompareRequest) BuildArgument() string {
 
 	return c.Repository.CurrentBranch
 }
-

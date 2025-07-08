@@ -123,4 +123,3 @@ func TestHasUpstreamRemote(t *testing.T) {
 		})
 	}
 }
-
