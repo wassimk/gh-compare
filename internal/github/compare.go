@@ -1,3 +1,4 @@
+// Package github provides GitHub-specific functionality for generating compare URLs.
 package github
 
 import (

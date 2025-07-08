@@ -1,3 +1,4 @@
+// Package git provides Git repository operations and types for the gh-compare CLI extension.
 package git
 
 import (
