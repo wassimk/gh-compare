@@ -36,6 +36,10 @@ func (s *CompareService) GenerateCompareURL(args []string) (string, error) {
 }
 
 func (s *CompareService) buildCompareRequest(args []string) (*git.CompareRequest, error) {
+	if len(args) > 1 {
+		return nil, fmt.Errorf("too many arguments: expected 1, got %d", len(args))
+	}
+
 	request := &git.CompareRequest{
 		Repository: s.repo,
 		HeadBranch: s.repo.CurrentBranch,
