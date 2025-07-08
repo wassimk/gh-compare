@@ -91,6 +91,7 @@ func TestNewCompareService(t *testing.T) {
 
 	if service == nil {
 		t.Error("Expected service to be created")
+		return
 	}
 
 	if service.repo != repo {
