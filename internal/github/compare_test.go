@@ -59,6 +59,13 @@ func TestCompareService_buildCompareRequest(t *testing.T) {
 		},
 	}
 
+	t.Run("Too many arguments", func(t *testing.T) {
+		_, err := service.buildCompareRequest([]string{"branch1", "branch2"})
+		if err == nil {
+			t.Error("Expected error for too many arguments, got nil")
+		}
+	})
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			request, err := service.buildCompareRequest(tt.args)
