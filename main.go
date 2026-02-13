@@ -8,13 +8,15 @@ import (
 	"os"
 
 	"github.com/cli/go-gh/v2/pkg/browser"
+	"github.com/wassimk/gh-compare/internal/clipboard"
 	"github.com/wassimk/gh-compare/internal/git"
 	"github.com/wassimk/gh-compare/internal/github"
 )
 
 type options struct {
-	printURL bool
-	args     []string
+	printURL   bool
+	copyToClip bool
+	args       []string
 }
 
 func parseFlags(args []string) options {
@@ -23,6 +25,8 @@ func parseFlags(args []string) options {
 	var opts options
 	fs.BoolVar(&opts.printURL, "url", false, "Print the compare URL to standard output")
 	fs.BoolVar(&opts.printURL, "u", false, "Print the compare URL to standard output")
+	fs.BoolVar(&opts.copyToClip, "copy", false, "Copy the compare URL to the clipboard")
+	fs.BoolVar(&opts.copyToClip, "c", false, "Copy the compare URL to the clipboard")
 
 	fs.Parse(args)
 	opts.args = fs.Args()
@@ -30,9 +34,18 @@ func parseFlags(args []string) options {
 	return opts
 }
 
-func handleURL(url string, opts options, stdout io.Writer) error {
-	if opts.printURL {
+func handleURL(url string, opts options, stdout io.Writer, clipFn func(string) error) error {
+	if opts.printURL || opts.copyToClip {
 		fmt.Fprintln(stdout, url)
+	}
+
+	if opts.copyToClip {
+		if err := clipFn(url); err != nil {
+			return fmt.Errorf("failed to copy to clipboard: %w", err)
+		}
+	}
+
+	if opts.printURL || opts.copyToClip {
 		return nil
 	}
 
@@ -53,7 +66,7 @@ func run(opts options, stdout io.Writer) error {
 		return err
 	}
 
-	return handleURL(url, opts, stdout)
+	return handleURL(url, opts, stdout, clipboard.Write)
 }
 
 func main() {
