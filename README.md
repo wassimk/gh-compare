@@ -14,7 +14,7 @@ gh extension install wassimk/gh-compare
 
 The command must be run inside a git repository with a GitHub remote.
 
-Compare the current branch against the repository's default branch. The default branch is detected automatically — it does not assume `main`.
+Compare the current branch against the repository's default branch.
 
 ```shell
 gh compare
@@ -26,10 +26,16 @@ Compare the current branch against another branch.
 gh compare other_branch
 ```
 
-Compare any two branches. Both `...` (three-dot) and `..` (two-dot) notations are supported.
+Compare any two branches using `...` (three-dot) notation. This shows only the changes introduced by the second branch, like a pull request diff. Commits added to the first branch after the two diverged are ignored.
 
 ```shell
-gh compare their_branch...my_branch
+gh compare main...my_branch
+```
+
+You can also use `..` (two-dot) notation for a direct diff between two branches as they exist right now. Unlike three-dot, this includes the effect of commits on both sides.
+
+```shell
+gh compare main..my_branch
 ```
 
 Compare any two commits.
