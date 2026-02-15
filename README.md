@@ -4,13 +4,13 @@ A [`gh`](https://cli.github.com/) CLI extension that opens GitHub's compare view
 
 This was built to replace the [`compare`](https://hub.github.com/hub-compare.1.html) command from the deprecated [`hub`](https://hub.github.com/) tool.
 
-### Installation
+### 🛠️ Installation
 
 ```shell
 gh extension install wassimk/gh-compare
 ```
 
-### Usage
+### ✨ Usage
 
 The command must be run inside a git repository with a GitHub remote.
 
@@ -44,7 +44,7 @@ Compare any two commits.
 gh compare 7a67154..205b073
 ```
 
-### Forks
+### 🍴 Forks
 
 If your repository is a fork with an `upstream` remote, `gh compare` automatically generates a cross-fork compare URL. For example, running `gh compare` on a fork will produce a URL like:
 
@@ -54,7 +54,7 @@ https://github.com/upstream-owner/repo/compare/main...your-user:your-branch
 
 This matches GitHub's compare-across-forks behavior so the diff is shown against the upstream repository.
 
-### Upgrade / Uninstall
+### 📦 Upgrade / Uninstall
 
 ```shell
 gh extension upgrade wassimk/gh-compare
