@@ -10,7 +10,7 @@ This was built to replace the [`compare`](https://hub.github.com/hub-compare.1.h
 gh extension install wassimk/gh-compare
 ```
 
-### ✨ Usage
+### 💻 Usage
 
 The command must be run inside a git repository with a GitHub remote.
 
