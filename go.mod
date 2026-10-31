@@ -1,9 +1,9 @@
 module github.com/wassimk/gh-compare
 
-go 1.25.0
+go 1.26.7
 
 require (
-	github.com/cli/go-gh/v2 v2.12.1
+	github.com/cli/go-gh/v2 v2.17.0
 	github.com/go-git/go-git/v5 v5.19.2
 )
 
@@ -13,7 +13,7 @@ require (
 	github.com/ProtonMail/go-crypto v1.1.6 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.10.0 // indirect
 	github.com/cli/browser v1.3.0 // indirect
-	github.com/cli/safeexec v1.0.0 // indirect
+	github.com/cli/safeexec v1.0.1 // indirect
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.1 // indirect
@@ -28,7 +28,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-runewidth v0.0.21 // indirect
+	github.com/mattn/go-runewidth v0.0.24 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
 	github.com/pjbgf/sha1cd v0.6.0 // indirect
 	github.com/rhysd/actionlint v1.7.12 // indirect
@@ -39,8 +39,8 @@ require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.3 // indirect
 	golang.org/x/crypto v0.53.0 // indirect
 	golang.org/x/net v0.56.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
