@@ -1,4 +1,4 @@
-name: release
+name: Release
 
 on:
   push:
@@ -6,13 +6,22 @@ on:
       - "v*"
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to publish the release artifacts.
     steps:
-      - uses: actions/checkout@v4
-      - uses: cli/gh-extension-precompile@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          go_version: "1.25"
+          persist-credentials: false
+      - uses: cli/gh-extension-precompile@76961aa3bd1123d0a6fd42d0a41aca0696937c39 # v2.2.0
+        with:
+          go_version_file: go.mod
